@@ -27,11 +27,10 @@ Vagrant.configure("2") do |config|
     yum-config-manager --disable docker-ce-edge
     yum makecache fast
     yum install -y docker-ce
-    systemctl enable docker-ce
-    systemctl start docker-ce
+    systemctl enable docker
+    systemctl start docker
     curl -L https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
-    systemctl start docker
   EOF
 
   # docker-ce & docker-composeのインストール
