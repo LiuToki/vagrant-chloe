@@ -21,6 +21,14 @@ Vagrant.configure("2") do |config|
 
   # Provisions
 
+  # dev tools
+  $setup_dev_tools = <<-SHELL
+    yum install -y git
+  SHELL
+
+  # dev tools のインストール
+  config.vm.provision "shell", inline:$setup_dev_tools
+
   $setup_gcc = <<-SHELL
     yum install -y wget gcc-c++
     yum install -y glibc-devel gmp-devel mpfr-devel libmpc-devel
@@ -66,5 +74,13 @@ Vagrant.configure("2") do |config|
 
   # docker-ce & docker-compose のインストール
   config.vm.provision "shell", inline:$setup_docker
-  
+
+  $setup_vagrant = <<-SHELL
+    # adduser vagrant
+    usermod -aG docker vagrant
+  SHELL
+
+  # vagrant 関係
+  config.vm.provision "shell", inline:$setup_vagrant
+
 end
