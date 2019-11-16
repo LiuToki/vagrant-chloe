@@ -2,13 +2,16 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  # Pugins
+  # Plugins
   if Vagrant.has_plugin?("vagrant-vbguest")
     config.vbguest.auto_update = true
   end
 
   # OS
   config.vm.box = "centos/7"
+
+  # Network
+  config.vm.network "forwarded_port", guest:3000, host:3000
 
   config.vm.provider "virtualbox" do |vb|
     # Display the VirtualBox GUI when booting the machine
@@ -33,15 +36,15 @@ Vagrant.configure("2") do |config|
     yum install -y wget gcc-c++
     yum install -y glibc-devel gmp-devel mpfr-devel libmpc-devel
 
-    wget http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/gcc-8.2.0/gcc-8.2.0.tar.gz
-    tar xzvf gcc-8.2.0.tar.gz
-    cd gcc-8.2.0
+    wget http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/gcc-9.2.0/gcc-9.2.0.tar.gz
+    tar xzvf gcc-9.2.0.tar.gz
+    cd gcc-9.2.0
     ./contrib/download_prerequisites
 
     mkdir build
     cd build
-    ../configure --prefix=/usr  --program-suffix=-8.2.0 --enable-languages=c,c++ --disable-multilib
-    export LD_LIBRARY_PATH=/usr/local/gcc-8.2.0/lib:$LD_LIBRARY_PATH
+    ../configure --prefix=/usr  --program-suffix=-9.2.0 --enable-languages=c,c++ --disable-multilib
+    export LD_LIBRARY_PATH=/usr/local/gcc-9.2.0/lib:$LD_LIBRARY_PATH
     export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
     export C_INCLUDE_PATH=/usr/include/x86_64-linux-gnu
     export CPLUS_INCLUDE_PATH=/usr/include/x86_64-linux-gnu
@@ -49,12 +52,12 @@ Vagrant.configure("2") do |config|
     make install
 
     cd ../../
-    rm -f gcc-8.2.0.tar.gz
-    rm -rf gcc-8.2.0
+    rm -f gcc-9.2.0.tar.gz
+    rm -rf gcc-9.2.0
 
     yum remove -y gcc gcc-c++
-    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8.2.0 1 \
-    --slave   /usr/bin/g++ g++ /usr/local/bin/g++-8.2.0
+    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9.2.0 1 \
+    --slave   /usr/bin/g++ g++ /usr/local/bin/g++-9.2.0
   SHELL
 
   # gcc のインストール
