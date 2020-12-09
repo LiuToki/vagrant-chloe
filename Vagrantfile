@@ -68,8 +68,8 @@ Vagrant.configure("2") do |config|
     rm -rf gcc-9.2.0
 
     yum remove -y gcc gcc-c++
-    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9.2.0 1
-    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9.2.0 1
+    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9.2.0 1 \
+    --slave /usr/bin/g++ g++ /usr/bin/g++-9.2.0
   SHELL
 
   # gcc のインストール
