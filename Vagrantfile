@@ -38,7 +38,7 @@ Vagrant.configure("2") do |config|
   $setup_dev_tools = <<-SHELL
     yum update
     yum install -y epel-release
-    yum install -y git make wget tar
+    yum install -y git make wget tar curl zip unzip cmake
   SHELL
 
   # dev tools のインストール
