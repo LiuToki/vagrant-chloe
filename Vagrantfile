@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
   end
 
   # OS
-  config.vm.box = "centos/7"
+  config.vm.box = "openlogic/rockylinux-8"
 
   # Network
   config.vm.network "forwarded_port", guest:3000, host:3000
@@ -53,7 +53,7 @@ Vagrant.configure("2") do |config|
   SHELL
 
   # gcc のインストール
-  config.vm.provision "shell", inline:$setup_gcc
+  #config.vm.provision "shell", inline:$setup_gcc
 
   $setup_docker = <<-SHELL
     yum install -y yum-utils
@@ -68,6 +68,6 @@ Vagrant.configure("2") do |config|
     SHELL
 
   # docker-ce & docker-compose のインストール
-  config.vm.provision "shell", inline:$setup_docker
+  # config.vm.provision "shell", inline:$setup_docker
   
 end
