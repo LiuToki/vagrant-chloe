@@ -13,6 +13,12 @@ Vagrant.configure("2") do |config|
   # Network
   config.vm.network "forwarded_port", guest:3000, host:3000
 
+  # Allura
+  # config.vm.network "forwarded_port", guest:8080, host:8080
+  # config.vm.network "forwarded_port", guest:8983, host:8983
+  # config.vm.network "forwarded_port", guest:8825, host:8825
+  # config.vm.network "forwarded_port", guest:27017, host:27017
+
   # virtual box settings.
   config.vm.provider "virtualbox" do |vb|
     # Display the VirtualBox GUI when booting the machine
@@ -22,21 +28,6 @@ Vagrant.configure("2") do |config|
     vb.memory = "1024"
 
   end
-
-  # OS
-  config.vm.box = "centos/7"
-
-  # public folder
-  config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
-
-  # Network
-  config.vm.network "forwarded_port", guest:3000, host:3000
-
-  # Allura
-  # config.vm.network "forwarded_port", guest:8080, host:8080
-  # config.vm.network "forwarded_port", guest:8983, host:8983
-  # config.vm.network "forwarded_port", guest:8825, host:8825
-  # config.vm.network "forwarded_port", guest:27017, host:27017
 
   # Provisions
 
