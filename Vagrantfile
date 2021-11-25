@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
   end
 
   # OS
-  config.vm.box = "openlogic/rockylinux-8"
+  config.vm.box = "generic/rocky8"
 
   # Network
   config.vm.network "forwarded_port", guest:3000, host:3000
@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
   SHELL
 
   # dev tools のインストール
-  config.vm.provision "shell", inline:$setup_dev_tools
+  # config.vm.provision "shell", inline:$setup_dev_tools
 
   $setup_gcc = <<-SHELL
     yum install -y gcc-c++
@@ -70,7 +70,7 @@ Vagrant.configure("2") do |config|
   SHELL
 
   # gcc のインストール
-  #config.vm.provision "shell", inline:$setup_gcc
+  # config.vm.provision "shell", inline:$setup_gcc
 
   $setup_docker = <<-SHELL
     yum install -y yum-utils
