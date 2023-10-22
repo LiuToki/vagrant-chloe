@@ -72,20 +72,19 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline:$setup_gcc
 
   # docker-ce & docker-compose
-  # $setup_docker = <<-SHELL
-  #   dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-  #   dnf install -y docker-ce docker-ce-cli
-  #   systemctl enable docker
-  #   systemctl start docker
-  #   curl -L https://github.com/docker/compose/releases/download/v2.1.1/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-  #   chmod +x /usr/local/bin/docker-compose
-  #   SHELL
+  $setup_docker = <<-SHELL
+    dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+    dnf install -y device-mapper-persistent-data lvm2
+    dnf install -y docker-ce docker-ce-cli containerd.io
+    systemctl enable docker
+    systemctl start docker
+    usermod -aG docker vagrant
+  SHELL
 
   # docker-ce & docker-compose のインストール
-  # config.vm.provision "shell", inline:$setup_docker
+  config.vm.provision "shell", inline:$setup_docker
 
   $setup_vagrant = <<-SHELL
-    usermod -aG docker vagrant
     # git clone https://gitbox.apache.org/repos/asf/allura.git/ allura-git
   SHELL
 
